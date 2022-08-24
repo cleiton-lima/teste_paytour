@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CurriculoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('form_curriculo');
 });
 
-Route::get('/curriculos', [CurriculoController::class, 'index'])->name('web.index');
+Route::name('web.curriculo.')->group(function() {
+    Route::resource('', CurriculoController::class);
+});

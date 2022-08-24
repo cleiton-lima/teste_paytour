@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('curriculos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('curriculo_id');
             $table->string('nome');
             $table->string('email')->unique();
             $table->string('telefone');

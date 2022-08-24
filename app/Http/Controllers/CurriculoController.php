@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CurriculoStoreRequest;
+use App\Models\Curriculo;
 
 class CurriculoController extends Controller
 {
@@ -13,7 +15,8 @@ class CurriculoController extends Controller
      */
     public function index()
     {
-        //
+        // return view('index');
+        return view('form_curriculo');
     }
 
     /**
@@ -32,9 +35,21 @@ class CurriculoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CurriculoStoreRequest $request)
     {
-        //
+        // $curriculo = [
+        //     'nome' => $request->nome,
+        //     'email' => $request->email,
+        //     'telefone' => $request->telefone,
+        //     'cargo_desejado' => $request->cargo_desejado,
+        //     'escolariade' => $request->escolariade,
+        //     'observacoes' => $request->observacoes,
+        //     'arquivo' => $request->arquivo,
+        //     'data_cadastro' => date('Y-m-d H:i:s'),
+        // ];
+
+        Curriculo::create($request->all());
+
     }
 
     /**
