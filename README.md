@@ -1,11 +1,11 @@
 
 # Projeto de teste para a empresa Paytour (Vaga PHP)
 
-### Para acelerar o processo de desenvolvimento, usei como base o respositório da EspecializaTi que se encontra no Github no endereço https://github.com/especializati/setup-docker-laravel/tree/laravel-9-com-php-8 (branch laravel-9-com-php-8) no qual o setup foi feito com o auxílio do Docker.
+Para acelerar o processo de desenvolvimento, usei como base o respositório da EspecializaTi que se encontra no Github no endereço https://github.com/especializati/setup-docker-laravel/tree/laravel-9-com-php-8 (branch laravel-9-com-php-8) no qual o setup foi feito com o auxílio do Docker.
 
-### O teste em si consiste em criar um formulário com os seguintes dados: Nome, e-mail, telefone, Cargo Desejado (Campo texto livre), Escolaridade (Campo select), observações, arquivo e data e hora do envio. O formulário deve ter validação dos campos e teste unitários.
+O teste em si consiste em criar um formulário com os seguintes dados: Nome, e-mail, telefone, Cargo Desejado (Campo texto livre), Escolaridade (Campo select), observações, arquivo e data e hora do envio. O formulário deve ter validação dos campos e teste unitários.
 
-### Como apenas a linguagem de programação a ser usada foi definida, o PHP, optei por usar o framework Laravel por ser muito bom de se tralahar e além disso, é muito requerido no mercado.
+Como apenas a linguagem de programação a ser usada foi definida, o PHP, optei por usar o framework Laravel por ser muito bom de se tralahar e além disso, é muito requerido no mercado.
 ### Passo a passo
 Clone Repositório
 ```sh
