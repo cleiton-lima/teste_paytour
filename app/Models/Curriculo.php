@@ -14,9 +14,8 @@ class Curriculo extends Model
         'email',
         'telefone',
         'cargo_desejado',
-        'escolariade',
+        'escolaridade',
         'observacoes',
         'arquivo',
-        'data_cadastro',
     ];
 }

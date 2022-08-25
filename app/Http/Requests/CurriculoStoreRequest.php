@@ -28,9 +28,8 @@ class CurriculoStoreRequest extends FormRequest
             'email' => ['required', 'email', 'max:255'],
             'telefone' => ['required', 'min:11', 'max:11'],
             'cargo_desejado' => ['required'],
-            'escolariade' => ['required'],
+            'escolaridade' => ['required'],
             'arquivo' => ['required', 'mimes:pdf'],
-            'data_cadastro' => ['required'],
         ];
     }
 
@@ -46,9 +45,8 @@ class CurriculoStoreRequest extends FormRequest
             'email.required' => 'O campo email é obrigatório',
             'telefone.required' => 'O campo telefone é obrigatório',
             'cargo_desejado.required' => 'O campo cargo desejado é obrigatório',
-            'escolariade.required' => 'O campo escolariade é obrigatório',
+            'escolaridade.required' => 'O campo escolaridade é obrigatório',
             'arquivo.required' => 'Só são aceitos os formato PDF, DOC e DOCX de até 1MB',
-            'data_cadastro.required' => 'O campo data de cadastro é obrigatório',
         ];
     }
 }

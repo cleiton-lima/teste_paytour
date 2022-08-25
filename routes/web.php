@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('form_curriculo');
 });
 
-Route::name('web.curriculo.')->group(function() {
+Route::name('web.curriculo.')->prefix('curriculo')->group(function() {
     Route::resource('', CurriculoController::class);
 });
+
+// Route::get('enviarEmail', [EmailController::class, 'envioEmail']);

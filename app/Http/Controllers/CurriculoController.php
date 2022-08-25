@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CurriculoStoreRequest;
 use App\Models\Curriculo;
+use Exception;
+use Illuminate\Support\Str;
 
 class CurriculoController extends Controller
 {
@@ -17,6 +19,11 @@ class CurriculoController extends Controller
     {
         // return view('index');
         return view('form_curriculo');
+
+        // $curriculo = Curriculo::latest()->paginate(5);
+
+        // return view('curriculo.index', compact('curriculo'))
+        //     ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -26,7 +33,7 @@ class CurriculoController extends Controller
      */
     public function create()
     {
-        //
+        return view('curriculo.create');
     }
 
     /**
@@ -37,18 +44,40 @@ class CurriculoController extends Controller
      */
     public function store(CurriculoStoreRequest $request)
     {
-        // $curriculo = [
-        //     'nome' => $request->nome,
-        //     'email' => $request->email,
-        //     'telefone' => $request->telefone,
-        //     'cargo_desejado' => $request->cargo_desejado,
-        //     'escolariade' => $request->escolariade,
-        //     'observacoes' => $request->observacoes,
-        //     'arquivo' => $request->arquivo,
-        //     'data_cadastro' => date('Y-m-d H:i:s'),
-        // ];
+        try{
+            $nomeUsuario = Str::slug($request->nome, '_');
+            $nomeArquivo = $nomeUsuario . "_" . now()->timestamp . ".pdf";
 
-        Curriculo::create($request->all());
+            $arquivo = $request->arquivo->storeAs(
+                '',
+                $nomeArquivo,
+                'curriculos'
+            );
+
+            Curriculo::create(
+                array_merge(
+                    $request->all(),
+                    ['arquivo' => $arquivo]
+                )
+            );
+            // dd('passou');
+            return redirect(route('web.curriculo.index'))
+                ->with(
+                    'success',
+                    'Curriculo armazenado com sucesso! ' .
+                    'Em breve nossa equipe entrará em contato.'
+                );
+        } catch (Exception $e) {
+            dd($e);
+            report($e);
+
+            redirect(route('web.curriculo.index'))
+                ->with(
+                    'error',
+                    'Erro! Não foi possível efetuar o cadastro. ' .
+                    'Tente novamente em algumas horas.'
+                );
+        }
 
     }
 
@@ -60,7 +89,7 @@ class CurriculoController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('curriculo.show', compact('curriculo'));
     }
 
     /**
@@ -71,7 +100,7 @@ class CurriculoController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('curriculo.edit', compact('curriculo'));
     }
 
     /**
@@ -83,7 +112,12 @@ class CurriculoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $curriculo = Curriculo::find($id);
+
+        $curriculo->update($request->all());
+
+        return redirect()->route('curriculo.index')
+            ->with('success', 'Curriculo atualizado com sucesso!');
     }
 
     /**
@@ -94,6 +128,11 @@ class CurriculoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $curriculo = Curriculo::find($id);
+
+        $curriculo->delete();
+
+        return redirect()->route('curriculo.index')
+            ->with('success', 'Curriculo removido com sucesso!');
     }
 }

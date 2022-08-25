@@ -19,10 +19,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('telefone');
             $table->string('cargo_desejado');
-            $table->string('escolariade');
+            $table->string('escolaridade');
             $table->text('observacoes')->nullable();
             $table->string('arquivo');
-            $table->dateTime('data_cadastro');
             $table->timestamps();
         });
     }
