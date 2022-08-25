@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CurriculoStoreRequest;
+use App\Mail\SendMail;
 use App\Models\Curriculo;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class CurriculoController extends Controller
@@ -44,6 +47,7 @@ class CurriculoController extends Controller
      */
     public function store(CurriculoStoreRequest $request)
     {
+        DB::beginTransaction();
         try{
             $nomeUsuario = Str::slug($request->nome, '_');
             $nomeArquivo = $nomeUsuario . "_" . now()->timestamp . ".pdf";
@@ -60,7 +64,10 @@ class CurriculoController extends Controller
                     ['arquivo' => $arquivo]
                 )
             );
-            // dd('passou');
+
+            Mail::to($request->email)->send(new SendMail());
+            DB::commit();
+            dd('Currículo enviado com sucesso!');
             return redirect(route('web.curriculo.index'))
                 ->with(
                     'success',
@@ -68,17 +75,18 @@ class CurriculoController extends Controller
                     'Em breve nossa equipe entrará em contato.'
                 );
         } catch (Exception $e) {
+
             dd($e);
+            DB::rollback();
             report($e);
 
-            redirect(route('web.curriculo.index'))
+            return redirect(route('web.curriculo.index'))
                 ->with(
                     'error',
                     'Erro! Não foi possível efetuar o cadastro. ' .
                     'Tente novamente em algumas horas.'
                 );
         }
-
     }
 
     /**

@@ -11,15 +11,7 @@ class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($envioEmail)
-    {
-        $this->envioEmail = $envioEmail;
-    }
+
 
     /**
      * Build the message.
@@ -28,10 +20,8 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->from(env('SYSTEM_MAIL', 'acrl.ribeiro17@gmail.com'))
-                    ->subject('Envio de Curriculo do Candidato a Vaga')
-                    ->view('email.email')
-                    ->attach(storage_path('app/public/arquivos/curriculos'.$this->envioEmail->arquivo))
-                    ->with('envioEmail', $this->envioEmail);
+        return $this->from(env('SYSTEM_MAIL', 'contato@paytour.com'))
+                    ->subject('Obrigado por se candidatar a vaga')
+                    ->markdown('emails.agradecimento_vaga');
     }
 }

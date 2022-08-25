@@ -2,12 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Mail\SendMail;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Curriculo;
 use Tests\TestCase;
-use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Mail;
 
 class CurriculoTest extends TestCase
 {
@@ -30,6 +31,7 @@ class CurriculoTest extends TestCase
 
     public function test_armazena_curriculo()
     {
+        Mail::fake();
         Storage::fake('curriculos');
         $now = Carbon::create(2022, 5, 21, 12);
         Carbon::setTestNow($now);
@@ -59,5 +61,6 @@ class CurriculoTest extends TestCase
         ]);
 
         Storage::disk('curriculos')->assertExists($nomeArquivo);
+        Mail::assertSent(SendMail::class);
     }
 }

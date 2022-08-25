@@ -22,4 +22,3 @@ Route::name('web.curriculo.')->prefix('curriculo')->group(function() {
     Route::resource('', CurriculoController::class);
 });
 
-// Route::get('enviarEmail', [EmailController::class, 'envioEmail']);

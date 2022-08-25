@@ -29,18 +29,24 @@
             <div class="mb-3">
                 <label for="inputNome" class="form-label">Nome Completo</label>
                 <input type="text" name="nome" class="form-control" id="nome" required>
-
+                @error('nome')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email </label>
                 <input type="email" name="email" class="form-control" id="email" required>
-
+                @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Telefone</label>
                 <input type="text" name="telefone" class="form-control" id="telefone" placeholder="##########"
                     required>
-
+                    @error('telefone')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Cargo Desejado</label>
