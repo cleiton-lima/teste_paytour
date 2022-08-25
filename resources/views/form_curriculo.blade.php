@@ -23,6 +23,12 @@
 
     <h2>Envio de Currículo Paytour</h2>
 
+    @if (isset($errors) && count($errors) > 0)
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+        @endforeach
+    @endif
+
     <div class="container mt-5">
         <form action="{{ route('web.curriculo.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -30,28 +36,30 @@
                 <label for="inputNome" class="form-label">Nome Completo</label>
                 <input type="text" name="nome" class="form-control" id="nome" required>
                 @error('nome')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger">{{ $messages }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email </label>
                 <input type="email" name="email" class="form-control" id="email" required>
                 @error('email')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Telefone</label>
                 <input type="text" name="telefone" class="form-control" id="telefone" placeholder="##########"
                     required>
-                    @error('telefone')
+                @error('telefone')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Cargo Desejado</label>
                 <input type="text" name="cargo_desejado" class="form-control" id="cargo_desejado" required>
-
+                @error('cargo_desejado')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <select class="form-select" name="escolaridade" required>
@@ -60,6 +68,9 @@
                     <option value="Médio">Médio</option>
                     <option value="Superior">Superior</option>
                 </select>
+                @error('escolaridade')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Observações</label>

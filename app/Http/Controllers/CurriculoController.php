@@ -58,7 +58,7 @@ class CurriculoController extends Controller
                 'curriculos'
             );
 
-            $curriculo = Curriculo::create(
+            $curriculo =  Curriculo::create(
                 array_merge(
                     $request->all(),
                     ['arquivo' => $arquivo]
