@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CurriculoStoreRequest;
-use App\Mail\SendMail;
+use App\Mail\AgradecimentoVaga;
 use App\Models\Curriculo;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -58,16 +58,16 @@ class CurriculoController extends Controller
                 'curriculos'
             );
 
-            Curriculo::create(
+            $curriculo = Curriculo::create(
                 array_merge(
                     $request->all(),
                     ['arquivo' => $arquivo]
                 )
             );
 
-            Mail::to($request->email)->send(new SendMail());
+            Mail::to($request->email)->send(new AgradecimentoVaga($curriculo));
             DB::commit();
-            dd('Currículo enviado com sucesso!');
+
             return redirect(route('web.curriculo.index'))
                 ->with(
                     'success',
@@ -75,8 +75,6 @@ class CurriculoController extends Controller
                     'Em breve nossa equipe entrará em contato.'
                 );
         } catch (Exception $e) {
-
-            dd($e);
             DB::rollback();
             report($e);
 

@@ -7,10 +7,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class AgradecimentoVaga extends Mailable
 {
     use Queueable, SerializesModels;
+    public $curriculo;
 
+    public function __construct($curriculo)
+    {
+        $this->curriculo = $curriculo;
+    }
 
 
     /**
@@ -22,6 +27,9 @@ class SendMail extends Mailable
     {
         return $this->from(env('SYSTEM_MAIL', 'contato@paytour.com'))
                     ->subject('Obrigado por se candidatar a vaga')
-                    ->markdown('emails.agradecimento_vaga');
+                    ->markdown('emails.agradecimento_vaga')
+                    ->with([
+                        'curriculo' => $this->curriculo,
+                    ]);
     }
 }
